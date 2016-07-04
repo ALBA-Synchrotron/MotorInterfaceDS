@@ -120,7 +120,11 @@ class MotorInterface (PyTango.Device_4Impl):
     def read_Velocity(self, attr):
         self.debug_stream("In read_Velocity()")
         #----- PROTECTED REGION ID(MotorInterface.Velocity_read) ENABLED START -----#
-        self.attr_Velocity_read = self.velocity.read().value
+        try:
+            self.attr_Velocity_read = self.velocity.read().value
+        except:
+            # return a dummy value 0.0 e.g. PseudoCounters does not have velocity..
+            self.attr_Velocity_read = 0.0
         attr.set_value(self.attr_Velocity_read)
         
         #----- PROTECTED REGION END -----#	//	MotorInterface.Velocity_read
