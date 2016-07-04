@@ -1,0 +1,2 @@
+#!/bin/sh
+screen -dm -S MotorInterface-$1 python /homelocal/sicilia/ds/python/MotorInterface/MotorInterface.py $1 -v2
