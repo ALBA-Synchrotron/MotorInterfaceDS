@@ -123,8 +123,10 @@ class MotorInterface (PyTango.Device_4Impl):
         try:
             self.attr_Velocity_read = self.velocity.read().value
         except:
-            # return a dummy value 0.0 e.g. PseudoCounters does not have velocity..
-            self.attr_Velocity_read = 0.0
+            # return a NaN when there were problems with velocity readouts
+            # e.g. this way we avoid expcetions when using PseudoCounters
+            # which do not have velocity
+            self.attr_Velocity_read = float("NaN")
         attr.set_value(self.attr_Velocity_read)
         
         #----- PROTECTED REGION END -----#	//	MotorInterface.Velocity_read
