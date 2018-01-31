@@ -49,6 +49,7 @@ __docformat__ = 'restructuredtext'
 
 import PyTango
 import sys
+import time
 # Add additional import
 #----- PROTECTED REGION ID(MotorInterface.additionnal_import) ENABLED START -----#
 import taurus
@@ -93,9 +94,10 @@ class MotorInterface (PyTango.Device_4Impl):
         #----- PROTECTED REGION END -----#	//	MotorInterface.init_device
 
     def always_executed_hook(self):
-        self.debug_stream("In always_excuted_hook()")
+        #self.debug_stream("In always_excuted_hook()")
         #----- PROTECTED REGION ID(MotorInterface.always_executed_hook) ENABLED START -----#
         self.set_state(self.motor.state())
+        time.sleep(0.1)
         #----- PROTECTED REGION END -----#	//	MotorInterface.always_executed_hook
 
     #-----------------------------------------------------------------------------
@@ -103,22 +105,22 @@ class MotorInterface (PyTango.Device_4Impl):
     #-----------------------------------------------------------------------------
     
     def read_Position(self, attr):
-        self.debug_stream("In read_Position()")
+        #self.debug_stream("In read_Position()")
         #----- PROTECTED REGION ID(MotorInterface.Position_read) ENABLED START -----#
         self.attr_Position_read = self.position.read().value
-        attr.set_value(self.attr_Position_read)
-        
+        attr.set_value(self.attr_Position_read)  
         #----- PROTECTED REGION END -----#	//	MotorInterface.Position_read
-        
+        time.sleep(0.1)
+
     def write_Position(self, attr):
-        self.debug_stream("In write_Position()")
+        #self.debug_stream("In write_Position()")
         data=attr.get_write_value()
         #----- PROTECTED REGION ID(MotorInterface.Position_write) ENABLED START -----#
         self.position.write(data)
         #----- PROTECTED REGION END -----#	//	MotorInterface.Position_write
         
     def read_Velocity(self, attr):
-        self.debug_stream("In read_Velocity()")
+        #self.debug_stream("In read_Velocity()")
         #----- PROTECTED REGION ID(MotorInterface.Velocity_read) ENABLED START -----#
         try:
             self.attr_Velocity_read = self.velocity.read().value
@@ -128,24 +130,24 @@ class MotorInterface (PyTango.Device_4Impl):
             # which do not have velocity
             self.attr_Velocity_read = float("NaN")
         attr.set_value(self.attr_Velocity_read)
+        time.sleep(0.1)
         
         #----- PROTECTED REGION END -----#	//	MotorInterface.Velocity_read
         
     def write_Velocity(self, attr):
-        self.debug_stream("In write_Velocity()")
+        #self.debug_stream("In write_Velocity()")
         data=attr.get_write_value()
         #----- PROTECTED REGION ID(MotorInterface.Velocity_write) ENABLED START -----#
         self.velocity.write(data)
         #----- PROTECTED REGION END -----#	//	MotorInterface.Velocity_write
         
     def read_Limit_Switches(self, attr):
-        self.debug_stream("In read_Limit_Switches()")
+        #self.debug_stream("In read_Limit_Switches()")
         #----- PROTECTED REGION ID(MotorInterface.Limit_Switches_read) ENABLED START -----#
         self.attr_Limit_Switches_read = self.limit_switches.read().value
         attr.set_value(self.attr_Limit_Switches_read)
-        
         #----- PROTECTED REGION END -----#	//	MotorInterface.Limit_Switches_read
-        
+        time.sleep(0.1)        
     
     
         #----- PROTECTED REGION ID(MotorInterface.initialize_dynamic_attributes) ENABLED START -----#
@@ -155,6 +157,7 @@ class MotorInterface (PyTango.Device_4Impl):
             
     def read_attr_hardware(self, data):
         self.debug_stream("In read_attr_hardware()")
+        time.sleep(0.1)
         #----- PROTECTED REGION ID(MotorInterface.read_attr_hardware) ENABLED START -----#
         
         #----- PROTECTED REGION END -----#	//	MotorInterface.read_attr_hardware
